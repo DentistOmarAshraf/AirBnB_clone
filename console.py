@@ -6,19 +6,20 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
 
     def help_help(self):
+        """Overwrite of super class help def"""
         print('This is an Airbnb clone created using Python, OOP, and other concepts learned on ALX.')
 
     def do_quit(self, line):
         """Quit command to exit the program"""
-        return True
+        exit()
 
     def do_EOF(self, line):
-        """Exit the program on EOF Mode"""
+        """Exit the program on EOF Style"""
         print()
-        return True
+        exit()
 
     def emptyline(self):
-        """Do nothing on an empty line"""
+        """The program will perform no action when an empty line is entered."""
         pass
 
     def do_create(self, line):
