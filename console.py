@@ -5,7 +5,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
 
     def help_help(self):
-        print('This is AirBnB Clone Using Pyhon OOP And Other Things that has been learnt it ON ALX')
+        print('This is an Airbnb clone created using Python, OOP, and other concepts learned on ALX.')
 
     def do_quit(self, line):
         """Quit command to exit the program"""
