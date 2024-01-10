@@ -1,4 +1,5 @@
 import cmd
+import sys
 
 
 class HBNBCommand(cmd.Cmd):
@@ -20,6 +21,13 @@ class HBNBCommand(cmd.Cmd):
         """Do nothing on an empty line"""
         pass
 
+    def do_create(self, line):
+        """Creates a new instance of BaseModel"""
+        print('lol is fun' + line)
+
 
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+    if len(sys.argv) > 1:
+        HBNBCommand().onecmd(' '.join(sys.argv[1:]))
+    else:
+        HBNBCommand().cmdloop()
