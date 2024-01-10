@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""__init__ file for packages"""
+
 
 from models.engine.file_storage import FileStorage
 
