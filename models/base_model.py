@@ -4,8 +4,8 @@ import uuid
 from datetime import datetime
 from models import storage
 
-class BaseModel:
 
+class BaseModel:
     data = storage.all()
 
     def __init__(self, *args, **kwargs):
@@ -25,17 +25,19 @@ class BaseModel:
                     continue
                 if key != "__class__":
                     setattr(self, key, val)
-        
+        else:
+            storage.new(self)
+
     def __str__(self):
         string = "[{}] ({}) {}".format(
-                self.__class__.__name__, self.id, self.__dict__)
+            self.__class__.__name__, self.id, self.__dict__)
         return string
 
     def save(self):
         self.updated_at = datetime.now()
         if self.to_dict() not in BaseModel.data.values():
             storage.new(self)
-        storage.save()
+            storage.save()
 
     def to_dict(self):
         dic = self.__dict__.copy()

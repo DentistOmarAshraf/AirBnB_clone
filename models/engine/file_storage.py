@@ -2,8 +2,8 @@
 
 import json
 
-class FileStorage:
 
+class FileStorage:
     __file_path = "file.json"
     __object = {}
 
