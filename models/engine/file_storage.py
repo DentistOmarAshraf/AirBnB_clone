@@ -1,28 +1,39 @@
 #!/usr/bin/env python3
-
+"""Class FileStorage"""
 import json
+from models.base_model import BaseModel
+import models
 
 
 class FileStorage:
+    """Class FileStorage"""
     __file_path = "file.json"
     __object = {}
 
     def all(self):
+        """return all Data"""
         return FileStorage.__object
 
     def new(self, obj):
+        """save instance in .__object"""
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        FileStorage.__object[key] = obj.to_dict()
+        FileStorage.__object[key] = obj
 
     def save(self):
+        """saving in .json file"""
         with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
-            json.dump(FileStorage.__object, f, indent=4)
+            data = {}
+            for k, v in FileStorage.__object.items():
+                data[k] = v.to_dict()
+            json.dump(data, f, indent=4)
 
     def reload(self):
-        with open(FileStorage.__file_path, "a+", encoding="utf-8") as f:
+        """reload json file to the endpoint"""
+        try:
+            with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
+                restored = json.load(f)
+                for k, v in restored.items():
+                    obj = BaseModel(**v)
+                    FileStorage.__object[k] = obj
+        except FileNotFoundError:
             pass
-        with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
-            try:
-                FileStorage.__object = json.load(f)
-            except:
-                pass

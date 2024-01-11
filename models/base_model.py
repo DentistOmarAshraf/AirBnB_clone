@@ -3,7 +3,7 @@
 import json
 import uuid
 from datetime import datetime
-from models import storage
+import models
 
 
 class BaseModel:
@@ -28,7 +28,7 @@ class BaseModel:
                 if key != "__class__":
                     setattr(self, key, val)
         else:
-            storage.new(self)
+            models.storage.new(self)
 
     def __str__(self):
         """
@@ -43,7 +43,7 @@ class BaseModel:
         Saving Instance in file.Json
         """
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """
