@@ -2,6 +2,7 @@
 """Class FileStorage"""
 import json
 from models.base_model import BaseModel
+from models.user import User
 import models
 
 
@@ -29,11 +30,13 @@ class FileStorage:
 
     def reload(self):
         """reload json file to the endpoint"""
+        classes = {"BaseModel": BaseModel, "User": User}
         try:
             with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
                 restored = json.load(f)
                 for k, v in restored.items():
-                    obj = BaseModel(**v)
+                    cls = classes[v['__class__']]
+                    obj = cls(**v)
                     FileStorage.__object[k] = obj
         except FileNotFoundError:
             pass
