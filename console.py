@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import cmd
 import sys
 from models.__init__ import storage
