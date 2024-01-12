@@ -156,6 +156,9 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
 
+        setattr(storage.all()[dic_key], args[2], args[3].strip('"'))
+        storage.save()
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
