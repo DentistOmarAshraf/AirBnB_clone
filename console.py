@@ -26,6 +26,10 @@ class HBNBCommand(cmd.Cmd):
         """Quit command to exit the program"""
         exit()
 
+    def help_quit(self):
+        print('testtttt')
+        print()
+
     def do_EOF(self, line):
         """Exit the program on EOF Style"""
         print()
@@ -100,7 +104,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             return
 
-        del(storage.all()[dic_key])
+        del (storage.all()[dic_key])
         storage.save()
 
     def do_all(self, line):
@@ -122,6 +126,35 @@ class HBNBCommand(cmd.Cmd):
                     to_show.append(str(value))
 
         print(to_show)
+
+    def do_update(self, line):
+        args = line.split(' ')
+
+        if not args or not args[0]:
+            print("** class name missing **")
+            return
+
+        if args[0] not in self.valid_classes.keys():
+            print("** class doesn't exist **")
+            return
+
+        if not args or len(args) < 2 or not args[1]:
+            print("** instance id missing **")
+            return
+
+        dic_key = args[0] + '.' + args[1]
+
+        if dic_key not in storage.all():
+            print("** no instance found **")
+            return
+
+        if not args or len(args) < 3 or not args[2]:
+            print("** attribute name missing **")
+            return
+
+        if not args or len(args) < 4 or not args[3]:
+            print("** value missing **")
+            return
 
 
 if __name__ == '__main__':
