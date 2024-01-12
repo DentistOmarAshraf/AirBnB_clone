@@ -112,8 +112,14 @@ class HBNBCommand(cmd.Cmd):
         if not args or not args[0]:
             for value in storage.all().values():
                 to_show.append(str(value))
-        else:
-            pass
+        elif args[0]:
+            if args[0] not in self.valid_classes.keys():
+                print("** class doesn't exist **")
+                return
+
+            for key, value in storage.all().items():
+                if key.split('.')[0] == args[0]:
+                    to_show.append(str(value))
 
         print(to_show)
 
