@@ -31,7 +31,7 @@ class FileStorage:
             data = {}
             for k, v in FileStorage.__object.items():
                 data[k] = v.to_dict()
-            json.dump(data, f, indent=4)
+            json.dump(data, f)
 
     def reload(self):
         """reload json file to the endpoint"""
@@ -45,5 +45,5 @@ class FileStorage:
                     cls = classes[v['__class__']]
                     obj = cls(**v)
                     FileStorage.__object[k] = obj
-        except FileNotFoundError:
+        except:
             pass
