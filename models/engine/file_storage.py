@@ -27,11 +27,11 @@ class FileStorage:
 
     def save(self):
         """saving in .json file"""
-        with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
+        with open(FileStorage.__file_path, "w") as f:
             data = {}
             for k, v in FileStorage.__object.items():
                 data[k] = v.to_dict()
-            json.dump(data, f, indent=4)
+            json.dump(data, f)
 
     def reload(self):
         """reload json file to the endpoint"""
@@ -39,7 +39,7 @@ class FileStorage:
                    "City": City, "Amenity": Amenity, "Place": Place,
                    "Review": Review}
         try:
-            with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
+            with open(FileStorage.__file_path, "r") as f:
                 restored = json.load(f)
                 for k, v in restored.items():
                     if '__class__' in v:
@@ -47,5 +47,5 @@ class FileStorage:
                             cls = classes[v['__class__']]
                             obj = cls(**v)
                             FileStorage.__object[k] = obj
-        except:
+        except FileNotFoundError:
             pass
