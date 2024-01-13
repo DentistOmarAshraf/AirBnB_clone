@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+The console the entry point to
+command interpreter
+"""
+
 import cmd
 import sys
 from models.__init__ import storage
@@ -12,6 +17,10 @@ from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
+    """
+    HBNBCommand class
+    """
+
     prompt = '(hbnb) '
 
     valid_classes = {"User": User, "State": State, "BaseModel": BaseModel,
