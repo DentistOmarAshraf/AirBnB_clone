@@ -42,8 +42,9 @@ class FileStorage:
             with open(FileStorage.__file_path, "r", encoding="utf-8") as f:
                 restored = json.load(f)
                 for k, v in restored.items():
-                    cls = classes[v['__class__']]
-                    obj = cls(**v)
-                    FileStorage.__object[k] = obj
+                    if '__class__' in value:
+                        cls = classes[v['__class__']]
+                        obj = cls(**v)
+                        FileStorage.__object[k] = obj
         except:
             pass
