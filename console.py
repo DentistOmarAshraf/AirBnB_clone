@@ -20,7 +20,8 @@ class HBNBCommand(cmd.Cmd):
 
     def help_help(self):
         """Overwrite of super class help def"""
-        print('This is an Airbnb clone created using Python, OOP, and other concepts learned on ALX.')
+        print('This is an Airbnb clone created using Python, OOP')
+        print('and other concepts learned on ALX.')
 
     def do_quit(self, line):
         """Quit command to exit the program"""
@@ -57,7 +58,8 @@ class HBNBCommand(cmd.Cmd):
         print(var_class.id)
 
     def do_show(self, line):
-        """Prints the string representation of an instance based on the class name and id"""
+        """Prints the string representation of an instance based on
+        the class name and id"""
         args = line.split(' ')
 
         if not args or not args[0]:
@@ -108,7 +110,8 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_all(self, line):
-        """Prints all string representation of all instances based or not on the class name"""
+        """Prints all string representation of all instances based or
+        not on the class name"""
         args = line.split(' ')
 
         to_show = []
@@ -161,7 +164,4 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        HBNBCommand().onecmd(' '.join(sys.argv[1:]))
-    else:
-        HBNBCommand().cmdloop()
+    HBNBCommand().cmdloop()
