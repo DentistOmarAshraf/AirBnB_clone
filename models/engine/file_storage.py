@@ -9,6 +9,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 import models
+import os
 
 
 class FileStorage:
@@ -37,8 +38,9 @@ class FileStorage:
         """reload json file to the endpoint"""
         classes = {"User": User, "State": State, "BaseModel": BaseModel,
                    "City": City, "Amenity": Amenity, "Place": Place,
-                   "Review": Review}
-        try:
+                   "Review": Review
+                   }
+        if os.path.exists(FileStorage.__file_path):
             with open(FileStorage.__file_path, "r") as f:
                 restored = json.load(f)
                 for k, v in restored.items():
@@ -47,5 +49,3 @@ class FileStorage:
                         del v['__class__']
                         obj = cls(**v)
                         FileStorage.__object[k] = obj
-        except FileNotFoundError:
-            pass
