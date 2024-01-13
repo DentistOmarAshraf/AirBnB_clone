@@ -69,6 +69,7 @@ class HBNBCommand(cmd.Cmd):
         inst_key = cmnd[0] + '.' + cmnd[1]
         if inst_key not in self.data.keys():
             print("** no instance found **")
+            return
         del(self.data[inst_key])
         models.storage.save()
 
@@ -102,7 +103,7 @@ class HBNBCommand(cmd.Cmd):
             return
         inst_key = cmnd[0] + '.' + cmnd[1]
         if inst_key not in self.data.keys():
-            print("** instance id missing **")
+            print("** no instance found **")
             return
         if len(cmnd) == 2:
             print("** attribute name missing **")
