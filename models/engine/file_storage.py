@@ -8,7 +8,6 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-import models
 import os
 
 
@@ -32,7 +31,7 @@ class FileStorage:
             data = {}
             for k, v in FileStorage.__object.items():
                 data[k] = v.to_dict()
-            json.dump(data, f)
+            json.dump(data, f, indent=4)
 
     def reload(self):
         """reload json file to the endpoint"""
@@ -44,8 +43,6 @@ class FileStorage:
             with open(FileStorage.__file_path, "r") as f:
                 restored = json.load(f)
                 for k, v in restored.items():
-                    if '__class__' in v.keys():
-                        cls = classes[v['__class__']]
-                        del v['__class__']
-                        obj = cls(**v)
-                        FileStorage.__object[k] = obj
+                    cls = classes[v['__class__']]
+                    obj = cls(**v)
+                    FileStorage.__object[k] = obj
