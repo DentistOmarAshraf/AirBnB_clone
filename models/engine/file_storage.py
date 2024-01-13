@@ -18,20 +18,21 @@ class FileStorage:
 
     def all(self):
         """return all Data"""
-        return FileStorage.__object
+        return self.__object
 
     def new(self, obj):
         """save instance in .__object"""
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        FileStorage.__object[key] = obj
+        self.__object[key] = obj
 
     def save(self):
         """saving in .json file"""
-        with open(FileStorage.__file_path, "w") as f:
+        with open(self.__file_path, "w") as f:
             data = {}
-            for k, v in FileStorage.__object.items():
+            for k, v in self.__object.items():
                 data[k] = v.to_dict()
-            json.dump(data, f, indent=4)
+            if len(data) != 0:
+                json.dump(data, f, indent=4)
 
     def reload(self):
         """reload json file to the endpoint"""
@@ -39,13 +40,13 @@ class FileStorage:
                    "City": City, "Amenity": Amenity, "Place": Place,
                    "Review": Review
                    }
-        if os.path.exists(FileStorage.__file_path):
-            with open(FileStorage.__file_path, "r") as f:
+        if os.path.exists(self.__file_path):
+            with open(self.__file_path, "r") as f:
                 restored = json.load(f)
                 for k, v in restored.items():
                     if '__class__' in v.keys():
                         cls = classes[v['__class__']]
                         obj = cls(**v)
-                        FileStorage.__object[k] = obj
+                        self.__object[k] = obj
                     else:
-                        FileStorage.__object[k] = v
+                        self.__object[k] = v
