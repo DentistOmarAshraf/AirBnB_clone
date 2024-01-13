@@ -42,10 +42,9 @@ class FileStorage:
             with open(FileStorage.__file_path, "r") as f:
                 restored = json.load(f)
                 for k, v in restored.items():
-                    if '__class__' in v:
-                        if v['__class__'] in classes.keys():
-                            cls = classes[v['__class__']]
-                            obj = cls(**v)
-                            FileStorage.__object[k] = obj
+                    if '__class__' in v.keys():
+                        cls = classes[v['__class__']]
+                        obj = cls(**v)
+                        FileStorage.__object[k] = obj
         except FileNotFoundError:
             pass
