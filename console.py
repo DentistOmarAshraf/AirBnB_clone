@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import cmd
-import sys
 from models.__init__ import storage
 from models.amenity import Amenity
 from models.base_model import BaseModel
@@ -12,7 +11,7 @@ from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
-    prompt = '(hbnb) '
+    prompt = "(hbnb) "
 
     valid_classes = {"User": User, "State": State, "BaseModel": BaseModel,
                      "City": City, "Amenity": Amenity, "Place": Place,
@@ -163,5 +162,5 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     HBNBCommand().cmdloop()
