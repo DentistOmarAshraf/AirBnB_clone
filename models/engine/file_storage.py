@@ -44,6 +44,7 @@ class FileStorage:
                 for k, v in restored.items():
                     if '__class__' in v.keys():
                         cls = classes[v['__class__']]
+                        del v['__class__']
                         obj = cls(**v)
                         FileStorage.__object[k] = obj
         except FileNotFoundError:
