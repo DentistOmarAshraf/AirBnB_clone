@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Class FileStorage"""
+"""
+Class FileStorage
+"""
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -12,7 +14,7 @@ import os
 
 
 class FileStorage:
-    """Class FileStorage"""
+    """Class FileStorage for saving instance"""
     __file_path = "file.json"
     __object = {}
 
@@ -44,7 +46,7 @@ class FileStorage:
             with open(self.__file_path, "r") as f:
                 restored = json.load(f)
                 for k, v in restored.items():
-                    if '__class__' in v.keys():
+                    if '__class__' in v:
                         cls = classes[v['__class__']]
                         obj = cls(**v)
                         self.__object[k] = obj
