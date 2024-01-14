@@ -94,6 +94,15 @@ class Test_BaseModel(unittest.TestCase):
         self.assertIsInstance(self.model_a.some, str)
         self.assertIsInstance(self.model_a.num, int)
 
+    def test_err(self):
+        """Testing errors"""
+        with self.assertRaises(TypeError):
+            x = self.model_a.to_dict("hi")
+        with self.assertRaises(TypeError):
+            x = self.model_a.save("hi")
+        with self.assertRaises(TypeError):
+            x = self.model_a.__str__("hi")
+
 
 if __name__ == "__main__":
     unittest.main()
