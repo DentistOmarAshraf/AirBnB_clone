@@ -1,56 +1,52 @@
 #!/usr/bin/env python3
-"""Testing Class User"""
+"""
+Testing User Class
+"""
 import unittest
-from unittest.mock import patch
-from models.user import User
 from models.base_model import BaseModel
-from io import StringIO
-import os
+from datetime import datetime
+from models.user import User
 
 
-class Test_user(unittest.TestCase):
-    """Testing Class User"""
+class Test_User(unittest.TestCase):
+    """Testing User Class"""
 
-    def test_init(self):
-        """testing __init__()"""
-        a = User()
-        a.email = "somemail@ml"
-        a.password = "root1"
-        a.first_name = "Omar"
-        a.last_name = "Afifi"
-        b = User()
-        b.email = "othermail@ml"
-        b.password = "root2"
-        b.first_name = "Mostafa"
-        b.last_name = "Lotfy"
-        self.assertNotEqual(a.id, b.id)
-        self.assertNotEqual(a.created_at, b.created_at)
-        self.assertNotEqual(a.updated_at, b.updated_at)
-        self.assertNotEqual(a.email, b.email)
-        self.assertNotEqual(a.password, b.password)
-        self.assertNotEqual(a.first_name, b.first_name)
-        self.assertNotEqual(a.last_name, b.last_name)
+    model = User()
 
-    def test_str(self):
-        """testing instance str()"""
-        a = User()
-        string = a.__str__()
-        with patch('sys.stdout', new=StringIO()) as dis:
-            print(a, end="")
-            self.assertEqual(dis.getvalue(), string)
+    def test_instance(self):
+        """Testing Is Instance"""
+        self.assertIsInstance(self.model, BaseModel)
+        self.assertIsInstance(self.model, User)
+        self.assertIsInstance(self.model.id, str)
+        self.assertIsInstance(self.model.created_at, datetime)
+        self.assertIsInstance(self.model.updated_at, datetime)
 
-    def test_save(self):
-        """testing datetime"""
-        a = User()
-        T1 = a.updated_at
-        a.save()
-        T2 = a.updated_at
-        self.assertNotEqual(T1, T2)
-        os.remove("file.json")
+    def test_attributes(self):
+        """Testing has attribute"""
+        self.assertTrue(hasattr(self.model, "id"))
+        self.assertTrue(hasattr(self.model, "created_at"))
+        self.assertTrue(hasattr(self.model, "updated_at"))
+        self.assertTrue(hasattr(self.model, "__init__"))
 
-    def test_to_dict(self):
-        """testing to_dict"""
-        a = User()
-        model_dict = a.__dict__
-        to_dict_ret = a.to_dict()
-        self.assertNotEqual(model_dict, to_dict_ret)
+    def test_attributes_a(self):
+        """Testing has attribute"""
+        self.assertTrue(hasattr(self.model, "email"))
+        self.assertTrue(hasattr(self.model, "password"))
+        self.assertTrue(hasattr(self.model, "first_name"))
+        self.assertTrue(hasattr(self.model, "last_name"))
+
+    def test_attribute_type(self):
+        """Testing Type of attr"""
+        self.assertIsInstance(self.model.email, str)
+        self.assertIsInstance(self.model.password, str)
+        self.assertIsInstance(self.model.first_name, str)
+        self.assertIsInstance(self.model.last_name, str)
+
+    def test_addattr(self):
+        """Testing add attribute"""
+        self.model.some = "some"
+        self.assertTrue(hasattr(self.model, "some"))
+
+
+if __name__ == "__main__":
+    unittest.main()

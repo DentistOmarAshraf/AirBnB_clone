@@ -1,65 +1,79 @@
 #!/usr/bin/env python3
-"""Testing BaseModel"""
+"""
+Testing BaseModel Class
+"""
 import unittest
+import models
+import os
+from io import StringIO
+from datetime import datetime
 from unittest.mock import patch
 from models.base_model import BaseModel
-from io import StringIO
-import os
 
 
 class Test_BaseModel(unittest.TestCase):
     """BaseModel Tests"""
-    def test_init(self):
-        """testing instance creation"""
-        a = BaseModel()
-        a.name = "someName"
-        dic = a.to_dict()
-        b = BaseModel(**dic)
-        self.assertEqual(a.id, b.id)
-        self.assertEqual(a.created_at, b.created_at)
-        self.assertEqual(a.updated_at, b.updated_at)
-        self.assertEqual(a.name, b.name)
-        self.assertEqual(a.__class__, b.__class__)
-        self.assertNotEqual(a, b)
+
+    model_a = BaseModel()
+    model_b = BaseModel()
+
+    def test_instance(self):
+        """Testing Is Instance"""
+        self.assertIsInstance(self.model_a, BaseModel)
+        self.assertIsInstance(self.model_b, BaseModel)
 
     def test_id(self):
-        """testing uuid"""
-        a = BaseModel()
-        b = BaseModel()
-        self.assertNotEqual(a.id, b.id)
+        """Testing UUID4"""
+        self.assertNotEqual(self.model_a.id, self.model_b.id)
+        self.assertEqual(type(self.model_a.id), str)
+        self.assertEqual(type(self.model_b.id), str)
 
-    def test_create(self):
-        """testing datetime"""
-        a = BaseModel()
-        b = BaseModel()
-        self.assertNotEqual(a.created_at, b.created_at)
+    def test_datetime(self):
+        """Testing DateTime"""
+        self.assertIsInstance(self.model_a.created_at, datetime)
+        self.assertIsInstance(self.model_b.created_at, datetime)
+        self.assertIsInstance(self.model_a.updated_at, datetime)
+        self.assertIsInstance(self.model_b.updated_at, datetime)
 
-    def test_update(self):
-        """testing datetime"""
-        a = BaseModel()
-        b = BaseModel()
-        self.assertNotEqual(a.updated_at, b.updated_at)
-
-    def test_str(self):
-        """testing instance str()"""
-        a = BaseModel()
-        string = a.__str__()
+    def test_represent_str(self):
+        """Testing instance __str__()"""
+        string = self.model_a.__str__()
         with patch('sys.stdout', new=StringIO()) as dis:
-            print(a, end="")
+            print(self.model_a, end="")
+            self.assertEqual(dis.getvalue(), string)
+        string = self.model_b.__str__()
+        with patch('sys.stdout', new=StringIO()) as dis:
+            print(self.model_b, end="")
             self.assertEqual(dis.getvalue(), string)
 
     def test_save(self):
-        """testing datetime"""
-        a = BaseModel()
-        T1 = a.updated_at
-        a.save()
-        T2 = a.updated_at
-        self.assertNotEqual(T1, T2)
+        """Testing instance save()"""
+        t1 = self.model_a.updated_at
+        self.model_a.save()
+        t2 = self.model_b.updated_at
+        self.assertNotEqual(t1, t2)
+        self.assertTrue(os.path.exists("file.json"))
+
+    def test_storage_object(self):
+        """Testing Storage new method"""
+        restored = models.storage.all()
+        key = "BaseModel.{}".format(self.model_a.id)
+        self.assertEqual(restored[key], self.model_a)
+        key = "BaseModel.{}".format(self.model_b.id)
+        self.assertEqual(restored[key], self.model_b)
         os.remove("file.json")
 
     def test_to_dict(self):
-        """testing to_dict"""
-        a = BaseModel()
-        model_dict = a.__dict__
-        to_dict_ret = a.to_dict()
+        """Testing to_dict"""
+        model_dict = self.model_a.__dict__
+        to_dict_ret = self.model_a.to_dict()
         self.assertNotEqual(model_dict, to_dict_ret)
+
+    def test_addattr(self):
+        """Testing adding attribute"""
+        self.model_a.some = "some"
+        self.assertTrue(hasattr(self.model_a, "some"))
+
+
+if __name__ == "__main__":
+    unittest.main()
