@@ -82,6 +82,8 @@ class Test_BaseModel(unittest.TestCase):
         model_dict = self.model_a.__dict__
         to_dict_ret = self.model_a.to_dict()
         self.assertNotEqual(model_dict, to_dict_ret)
+        self.assertEqual(to_dict_ret["__class__"],
+                         self.model_a.__class__.__name__)
 
     def test_addattr(self):
         """Testing adding attribute"""
