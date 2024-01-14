@@ -5,6 +5,7 @@ Testing BaseModel Class
 import unittest
 import models
 import os
+import uuid
 from io import StringIO
 from datetime import datetime
 from unittest.mock import patch
@@ -24,6 +25,7 @@ class Test_BaseModel(unittest.TestCase):
         self.assertEqual(self.model_a.created_at, model_c.created_at)
         self.assertEqual(self.model_a.updated_at, model_c.updated_at)
         self.assertNotEqual(self.model_a, model_c)
+        self.assertEqual(self.model_a.to_dict(), model_c.to_dict())
 
     def test_instance(self):
         """Testing Is Instance"""
@@ -35,6 +37,7 @@ class Test_BaseModel(unittest.TestCase):
         self.assertNotEqual(self.model_a.id, self.model_b.id)
         self.assertEqual(type(self.model_a.id), str)
         self.assertEqual(type(self.model_b.id), str)
+        self.assertIsInstance(uuid.UUID(self.model_a.id), uuid.UUID)
 
     def test_datetime(self):
         """Testing DateTime"""
@@ -42,6 +45,9 @@ class Test_BaseModel(unittest.TestCase):
         self.assertIsInstance(self.model_b.created_at, datetime)
         self.assertIsInstance(self.model_a.updated_at, datetime)
         self.assertIsInstance(self.model_b.updated_at, datetime)
+        datetimeiso = self.model_a.created_at.isoformat()
+        from_dict = self.model_a.to_dict()["created_at"]
+        self.assertEqual(datetimeiso, from_dict)
 
     def test_represent_str(self):
         """Testing instance __str__()"""
