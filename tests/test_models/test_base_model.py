@@ -17,6 +17,14 @@ class Test_BaseModel(unittest.TestCase):
     model_a = BaseModel()
     model_b = BaseModel()
 
+    def test_init(self):
+        """Testing __init__(**kwargs)"""
+        model_c = BaseModel(**(self.model_a.to_dict()))
+        self.assertEqual(self.model_a.id, model_c.id)
+        self.assertEqual(self.model_a.created_at, model_c.created_at)
+        self.assertEqual(self.model_a.updated_at, model_c.updated_at)
+        self.assertNotEqual(self.model_a, model_c)
+
     def test_instance(self):
         """Testing Is Instance"""
         self.assertIsInstance(self.model_a, BaseModel)
@@ -72,7 +80,11 @@ class Test_BaseModel(unittest.TestCase):
     def test_addattr(self):
         """Testing adding attribute"""
         self.model_a.some = "some"
+        self.model_a.num = 30
         self.assertTrue(hasattr(self.model_a, "some"))
+        self.assertTrue(hasattr(self.model_a, "num"))
+        self.assertIsInstance(self.model_a.some, str)
+        self.assertIsInstance(self.model_a.num, int)
 
 
 if __name__ == "__main__":
