@@ -171,6 +171,19 @@ class HBNBCommand(cmd.Cmd):
         setattr(storage.all()[dic_key], args[2], args[3].strip('"'))
         storage.save()
 
+    def precmd(self, line):
+        """Pre Command Proccessing"""
+        args = line.split('.')
+        if len(args) == 1:
+            return args[0]
+
+        if len(args) == 2:
+            sec_seg = args[1].split('(')
+            if len(sec_seg) == 1:
+                return line
+            return sec_seg[0] + ' ' + args[0]
+
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
