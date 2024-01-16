@@ -141,6 +141,7 @@ class HBNBCommand(cmd.Cmd):
         print(to_show)
 
     def do_update(self, line):
+        """Update class attributes"""
         args = line.split(' ')
 
         if not args or not args[0]:
@@ -200,12 +201,16 @@ class HBNBCommand(cmd.Cmd):
             if len(sec_seg[1]) == 1:
                 return sec_seg[0] + ' ' + args[0]
             if len(sec_seg[1]) > 1:
-                z = sec_seg[1].split('"')
-                if len(z) > 1:
-                    return sec_seg[0] + ' ' + args[0] + ' ' + z[1]
-                else:
-                    z = sec_seg[1].split(")")
-                    return sec_seg[0] + ' ' + args[0] + ' ' + z[0]
+                z = sec_seg[1].split(',')
+                z = [x.strip(')') for x in z]
+                z = [x.strip('"') for x in z]
+                z = [x.strip(' ') for x in z]
+                z = [x.strip('"') for x in z]
+                z = [x.strip('\'') for x in z]
+                string = sec_seg[0] + ' ' + args[0]
+                for i in z:
+                    string += ' ' +  i
+                return string
 
 
 if __name__ == '__main__':
