@@ -209,7 +209,7 @@ class HBNBCommand(cmd.Cmd):
                 z = [x.strip('\'') for x in z]
                 string = sec_seg[0] + ' ' + args[0]
                 for i in z:
-                    string += ' ' +  i
+                    string += ' ' + i
                 return string
 
 
