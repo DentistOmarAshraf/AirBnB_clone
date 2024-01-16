@@ -187,8 +187,6 @@ class HBNBCommand(cmd.Cmd):
                 ls.append(str(v))
         print(len(ls))
 
-
-
     def precmd(self, line):
         """Pre Command Proccessing"""
         args = line.split('.')
@@ -202,9 +200,12 @@ class HBNBCommand(cmd.Cmd):
             if len(sec_seg[1]) == 1:
                 return sec_seg[0] + ' ' + args[0]
             if len(sec_seg[1]) > 1:
-                z = sec_seg[1].split(')')
-                return sec_seg[0] + ' ' + args[0] + ' ' + z[0]
-
+                z = sec_seg[1].split('"')
+                if len(z) > 1:
+                    return sec_seg[0] + ' ' + args[0] + ' ' + z[1]
+                else:
+                    z = sec_seg[1].split(")")
+                    return sec_seg[0] + ' ' + args[0] + ' ' + z[0]
 
 
 if __name__ == '__main__':
