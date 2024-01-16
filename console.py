@@ -26,6 +26,7 @@ class HBNBCommand(cmd.Cmd):
     valid_classes = {"User": User, "State": State, "BaseModel": BaseModel,
                      "City": City, "Amenity": Amenity, "Place": Place,
                      "Review": Review}
+    data = storage.all()
 
     def help_help(self):
         """Overwrite of super class help def"""
@@ -171,6 +172,23 @@ class HBNBCommand(cmd.Cmd):
         setattr(storage.all()[dic_key], args[2], args[3].strip('"'))
         storage.save()
 
+    def do_count(self, line):
+        """Counting Instance"""
+        args = line.split()
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+        if args[0] not in self.valid_classes.keys():
+            print("** class doesn't exist **")
+            return
+        ls = []
+        for k, v in self.data.items():
+            if k.split('.')[0] == args[0]:
+                ls.append(str(v))
+        print(len(ls))
+
+
+
     def precmd(self, line):
         """Pre Command Proccessing"""
         args = line.split('.')
@@ -181,7 +199,11 @@ class HBNBCommand(cmd.Cmd):
             sec_seg = args[1].split('(')
             if len(sec_seg) == 1:
                 return line
-            return sec_seg[0] + ' ' + args[0]
+            if len(sec_seg[1]) == 1:
+                return sec_seg[0] + ' ' + args[0]
+            if len(sec_seg[1]) > 1:
+                z = sec_seg[1].split(')')
+                return sec_seg[0] + ' ' + args[0] + ' ' + z[0]
 
 
 
