@@ -22,12 +22,14 @@ div.amenities:hover .popover{
 	list-style: none;
 	margin: 0;
 	padding-top: 10%;
-	padding-left:9%;
-	width:91%;
+	padding-left:13%;
+	width:87%;
 	border:1px solid #DDDDDD;
 	border-radius: 4px;
 	background-color: #FAFAFA;
-
+}
+div.amenities:hover .popover li:last-child {
+	padding-bottom: 10%;
 }
 
 .popover h2 {
