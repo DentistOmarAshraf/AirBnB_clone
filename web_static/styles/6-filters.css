@@ -10,10 +10,36 @@ section.filters {
 section div {
 	width: 25%;
 	height: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
 }
+
+.popover {
+	display: none;
+}
+
+div.location:hover .popover,
+div.amenities:hover .popover{
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding-top: 10%;
+	padding-left:9%;
+	width:91%;
+	border:1px solid #DDDDDD;
+	border-radius: 4px;
+	background-color: #FAFAFA;
+
+}
+
+.popover h2 {
+	margin:0;
+	padding:0;
+}
+
+.popover ul {
+	list-style: none;
+	padding-bottom: 10%;
+}
+
 div.location {
 	border-right: 1px solid #DDDDDD;
 }
