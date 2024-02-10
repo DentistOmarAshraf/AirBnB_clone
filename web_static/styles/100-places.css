@@ -101,19 +101,45 @@ article div.reviews h2, article div.amenities h2 {
 	font-size: 16px;
 	border-bottom: 1px solid #DDDDDD;
 }
-article div.reviews ul, article div.amenities ul{
+article div.amenities ul{
 	width: 25%;
 	list-style: none;
-	padding-left: 13%;
+	padding-top:0;
+	padding-left: 0;
+	margin-top: 5px;
 }
-div.reviews ul li, div.amenities ul li{
+div.amenities ul li{
+	padding-top: 17px;
+	padding-bottom: 17px;
 }
-.amenities .tv {
-	list-style-image : url('../images/icon_tv.png');
+div.icons_container {
+	width: 100%;
+	display: flex;
+	padding-top: 15px;
 }
-.amenities .wifi {
-	list-style-image : url('../images/icon_wifi.png');
+div.icon {
+	display: flex;
+	width: 15%;
+	flex-direction: column;
 }
-.amenities .pets {
-	list-style-image : url('../images/icon_pets.png');
+div.icon_1::after {
+	content:'';
+	background: url('../images/icon_tv.png');
+	display: inline-block;
+	width:53px;
+	height: 50px;
+}
+div.icon_2::after {
+	content: '';
+	background: url('../images/icon_wifi.png');
+	display:inline-block;
+	width: 53px;
+	height: 50px;
+}
+div.icon_3::after {
+	content: '';
+	background: url('../images/icon_pets.png');
+	display: inline-block;
+	width: 53px;
+	height: 50px;
 }
